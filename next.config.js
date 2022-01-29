@@ -1,3 +1,5 @@
 module.exports = {
-  reactStrictMode: true,
+  env: {
+    MONGODB_URI: "mongodb://localhost/taskCrudApp"
+  }
 }
