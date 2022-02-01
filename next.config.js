@@ -1,5 +1,5 @@
 module.exports = {
   env: {
-    MONGODB_URI: "mongodb://localhost/taskCrudApp"
+    MONGODB_URI: "mongodb://localhost/taskJody"
   }
 }

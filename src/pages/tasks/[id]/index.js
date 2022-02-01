@@ -1,11 +1,11 @@
+import styled from "styled-components";
 import React from "react";
 import { useRouter } from "next/router";
-import { Confirm, Button, Grid, Card } from "semantic-ui-react";
 import Error from "next/error";
 import { useState } from "react/cjs/react.development";
 
 const Task = ({ task, error }) => {
-  const [confirm, setConfirm] = useState(false);
+  // const [confirm, setConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const { push, query } = useRouter();
 
@@ -20,8 +20,8 @@ const Task = ({ task, error }) => {
     }
   };
 
-  const open = () => setConfirm(true);
-  const close = () => setConfirm(false);
+  // const open = () => setConfirm(true);
+  // const close = () => setConfirm(false);
   const handleDelete = async () => {
     setIsDeleting(true);
     await deleteTask();
@@ -33,36 +33,56 @@ const Task = ({ task, error }) => {
     return <Error statusCode={error.statusCode} title={error.statusText} />;
   }
 
+  const Hero = styled.div`
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #202136;
+  `;
+
+  const Card = styled.div`
+    width: 50%;
+    padding: 1rem;
+    background-color: #fff;
+    border: solid 1px gray;
+    text-align: center;
+    border-radius: 0.3rem;
+    -webkit-box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.38);
+    box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.38);
+  `;
+  const CardTitle = styled.h2``;
+  const CardContent = styled.p``;
+  const CardDelete = styled.button`
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    background-color: #db2828;
+    margin-top: 2rem;
+    cursor: pointer;
+  `;
+
   return (
-    <Grid
-      centered
-      verticalAlign="middle"
-      columns="1"
-      style={{ height: "80vh" }}
-    >
-      <Grid.Row>
-        <Grid.Column textAlign="center">
-          <Card centered>
-            <Card.Content>
-              <Card.Header>{task.title}</Card.Header>
-              <Card.Description>{task.description}</Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-              <Button color="red" onClick={open} loading={isDeleting}>
-                Delete
-              </Button>
-            </Card.Content>
-          </Card>
-        </Grid.Column>
-      </Grid.Row>
-      <Confirm
-        content="Are you sur to delete that task ?"
-        header="Please Confirm"
-        open={confirm}
-        onConfirm={handleDelete}
-        onCancel={close}
-      />
-    </Grid>
+    <>
+      <Hero>
+        <Card>
+          <div>
+            <CardTitle>{task.title}</CardTitle>
+          </div>
+          <div>
+            <CardContent>{task.description}</CardContent>
+          </div>
+
+          <div>
+            <CardDelete onClick={handleDelete} loading={isDeleting}>
+              Delete
+            </CardDelete>
+          </div>
+        </Card>
+      </Hero>
+    </>
   );
 };
 
